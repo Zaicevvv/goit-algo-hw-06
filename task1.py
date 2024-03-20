@@ -24,7 +24,7 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, phone):
-        if len(str(phone)) == 10:
+        if len(str(phone)) == 10 and all([i.isdigit() for i in str(phone)]):
             super().__init__(phone)
         else:
             raise ValueError("Phone number must be 10 digits")
@@ -42,6 +42,10 @@ class Record:
             for i, phone in enumerate(self.phones):
                 if str(phone) == str(old):
                     self.phones[i] = Phone(new)
+                    return
+            raise ValueError("Phone number is not exist")
+        else:
+            raise ValueError("Phone number is not exist")
 
     def find_phone(self, to_find):
         if self.phones:
